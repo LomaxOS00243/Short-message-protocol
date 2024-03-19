@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ServerSMPForm">
+  <grid id="27dc6" binding="panel1" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="529" height="460"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="cb63c" layout-manager="GridBagLayout">
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-987931"/>
+          <foreground color="-987931"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <vspacer id="f30d4">
+            <constraints>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="3.0" weighty="0.0"/>
+            </constraints>
+          </vspacer>
+          <component id="7b961" class="javax.swing.JRadioButton" binding="connectionStatus">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="1.5" weighty="0.0" ipadx="5"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="afbd0" class="javax.swing.JButton" binding="startConnection">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="50" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-8479649"/>
+              <foreground color="-12828863"/>
+              <hideActionText value="true"/>
+              <text value="Start"/>
+            </properties>
+          </component>
+          <component id="a5222" class="javax.swing.JButton" binding="stopConnection">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="50" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="35"/>
+            </constraints>
+            <properties>
+              <background color="-8479649"/>
+              <text value="Stop"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="d5c7" binding="panel2" layout-manager="GridBagLayout">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="line">
+          <color color="-4473925"/>
+        </border>
+        <children>
+          <component id="873f5" class="javax.swing.JTextArea" binding="threads">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+              <gridbag top="50" left="0" bottom="0" right="0" weightx="5.0" weighty="40.0"/>
+            </constraints>
+            <properties/>
+          </component>
+          <scrollpane id="42b7f">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="50" left="0" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="15"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </scrollpane>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
