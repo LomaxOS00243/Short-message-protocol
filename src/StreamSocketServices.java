@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
+
 public class StreamSocketServices {
 
     private final SSLSocket sslSocket;
@@ -71,19 +73,19 @@ public class StreamSocketServices {
 
     // send a download message to server
     public void downloadAMessage(String message) {
-        output.print("download" + user.getAMessage(message)+"\n");
+        output.print("downloadOne" + user.getAMessage(message)+"\n");
         output.flush();
     }
     public String downloadAllMessages() {
-        String messages;
         StringBuilder mBuilder = new StringBuilder();
-        for (String mess : user.getAllMessages()) {
+        List<String> allMessages = user.getAllMessages();
+
+        for (String mess : allMessages) {
             mBuilder.append(mess).append("\n");
         }
-        messages = mBuilder.toString();
-        output.print("getAllMessage"+ messages+"\n");
+        output.println("downloadAll"+ mBuilder.toString());
         output.flush();
-        return messages;
+        return mBuilder.toString();
     }
 
     public void close() throws IOException {

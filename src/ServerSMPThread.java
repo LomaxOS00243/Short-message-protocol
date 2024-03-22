@@ -30,12 +30,12 @@ public class ServerSMPThread implements Runnable {
                      textArea.append("Successfully uploaded: " + message.substring(6) + "\n");
 
                 }
-                if (message.startsWith("download")) {
-                    textArea.append("Successfully downloaded: " + message.substring(8) + "\n");
+                if (message.startsWith("downloadOne")) {
+                    textArea.append("Successfully downloaded: " + message.substring(11) + "\n");
                 }
-                if (message.startsWith("getAll")) {
+                if (message.startsWith("downloadAll")) {
                     textArea.setText("");
-                    textArea.append("All messages \n" + message.substring(5) + "\n");
+                    textArea.append("All messages \n" + message.substring(11) + "\n");
                 }
                 //finish session if logout
                 if ((message.trim()).equals ("logout")) {

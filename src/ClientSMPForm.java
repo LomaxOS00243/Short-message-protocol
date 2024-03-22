@@ -88,6 +88,12 @@ public class ClientSMPForm {
         });
         //upload message to the server
         uploadBtn.addActionListener(e -> {
+
+            //check if message is empty
+            if (uploadMessage.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter message", "Upload", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
                 clientSTP.uploadMessage(uploadMessage.getText());
                 JOptionPane.showMessageDialog(null, "Upload message: " + uploadMessage.getText(), "Upload", JOptionPane.INFORMATION_MESSAGE);
@@ -98,6 +104,11 @@ public class ClientSMPForm {
         });
         //download message from the server
         downloadBtn.addActionListener(e -> {
+            //check if message is empty
+            if (downloadMessage.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter message", "Download", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             try {
                 clientSTP.downloadAMessage(downloadMessage.getText());
