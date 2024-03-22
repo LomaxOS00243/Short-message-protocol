@@ -1,5 +1,7 @@
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class ClientSMPForm {
     private JPanel clientPanel1;
@@ -25,6 +27,7 @@ public class ClientSMPForm {
 
     public ClientSMPForm() {
         $$$setupUI$$$();
+        //connect to the server
         connectBtn.addActionListener(e -> {
             System.setProperty("jdk.tls.server.protocols", "TLSv1.2");
             System.setProperty("javax.net.ssl.trustStore", "smptruststore.jks");
@@ -36,49 +39,49 @@ public class ClientSMPForm {
                 return;
             }
 
-            //connect to the server
             try {
                 clientSTP = new ClientSMPLogic(hostAdd.getText(), Integer.parseInt(portNumber.getText()));
 
-                JOptionPane.showMessageDialog(null, "Connection established to " + hostAdd.getText() + " on port " + portNumber.getText(), "Connection", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, clientSTP.getConnected() + " in " + hostAdd.getText() + " on port " + portNumber.getText(), "Connection", JOptionPane.INFORMATION_MESSAGE);
                 clientAuthPanel.setVisible(true);
 
             } catch (ClientProcessExceptions ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Connection", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         });
 
+        //login to the server
         loginBtn.addActionListener(e -> {
 
             //check if username and password are empty
-            /*if (username.getText().isEmpty() || password.getText().isEmpty()) {
+            if (username.getText().isEmpty() || password.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter username and password", "Login", JOptionPane.ERROR_MESSAGE);
                 return;
-            }*/
-            //login to the server
+            }
             try {
-                String returnMessage = clientSTP.login(username.getText(), password.getText());
-
-                if (returnMessage.equals("Invalid login!")) {
-                    JOptionPane.showMessageDialog(null, "Invalid login!", "Login", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+                clientSTP.login(username.getText(), password.getText());
 
                 JOptionPane.showMessageDialog(null, "Login successful", "Login", JOptionPane.INFORMATION_MESSAGE);
                 clientMessagePanel.setVisible(true);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
-            }
+            }//
         });
         //logout from the server
         logout.addActionListener(e -> {
 
             try {
-                clientSTP.logout();
-                JOptionPane.showMessageDialog(null, "Logout successful", "Logout", JOptionPane.INFORMATION_MESSAGE);
+                String discon = clientSTP.logout();
+
+                if (discon != null) {
+                    JOptionPane.showMessageDialog(null, discon, "Logout", JOptionPane.INFORMATION_MESSAGE);
+                }
                 clientMessagePanel.setVisible(false);
                 clientAuthPanel.setVisible(false);
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

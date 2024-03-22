@@ -2,12 +2,9 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLSession;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.security.KeyStore;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import javax.net.ssl.SSLServerSocketFactory;
 
 
@@ -15,14 +12,13 @@ public class ServerSMPLogic {
 
     private StreamSocketServices mySocket;
     private SSLServerSocket mySSLConnectionSocket;
-    public ServerSMPLogic() {
-    }
+    public ServerSMPLogic() {}
 
     //Create a SSL server socket
     private SSLContext secureSocket() throws Exception {
         String ksName = "smpkeystore.jks";
-        char ksPass[] = "mtu123".toCharArray();
-        char ctPass[] = "mtu123".toCharArray();
+        char[] ksPass = "mtu123".toCharArray();
+        char[] ctPass = "mtu123".toCharArray();
         KeyStore ks = KeyStore.getInstance("JKS");
         ks.load(new FileInputStream(ksName), ksPass);
         KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
@@ -33,7 +29,7 @@ public class ServerSMPLogic {
 
     }
     //listen for the connection on port 17
-    public void SetupConnection() throws Exception {
+    public void setupConnection() throws Exception {
 
         SSLServerSocketFactory ssf = secureSocket().getServerSocketFactory();
         mySSLConnectionSocket = (SSLServerSocket) ssf.createServerSocket(17);
@@ -42,10 +38,10 @@ public class ServerSMPLogic {
     }
 
     //accept the connection
-    public void AcceptConnection() throws IOException {
+    public void acceptConnection() {
         try {
             mySocket = new StreamSocketServices((SSLSocket) mySSLConnectionSocket.accept());
-            System.out.println("Connection accepted. Handshake starting...");
+            mySocket.connect();
 
         } catch (IOException e) {
             System.out.println("Error during handshake or connection acceptance"); //Handle Handshake or connection acceptance error
@@ -53,7 +49,7 @@ public class ServerSMPLogic {
 
     }
     //close the connection socket
-    public void CloseConnection()  {
+    public void closeConnection()  {
         try {
             if (mySocket != null) {
                 mySocket.close();

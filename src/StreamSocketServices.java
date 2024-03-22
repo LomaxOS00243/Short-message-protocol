@@ -35,8 +35,9 @@ public class StreamSocketServices {
     public String receiveMessage() throws IOException {
         return input.readLine();
     }
-    public void sendMessage(String message) {
-        output.print(message + "\n");
+    //connect to the server
+    public void connect() {
+        output.print("Connection is established \n");
         output.flush();
     }
 
@@ -47,13 +48,18 @@ public class StreamSocketServices {
 
         output.flush();
 
-
     }
 
     //logout method
     public void logout() {
         // send logout message to server
         output.print("logout\n");
+        output.flush();
+    }
+    public void loggingOut() {
+        user = null;
+        String lmsg = "logging out from the server";
+        output.print("lout"+ lmsg + "\n");
         output.flush();
     }
 

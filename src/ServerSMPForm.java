@@ -1,7 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.io.IOException;
 
 public class ServerSMPForm {
 
@@ -28,11 +27,11 @@ public class ServerSMPForm {
                 try {
                     System.setProperty("jdk.tls.server.protocols", "TLSv1.2");
                     serverSTP = new ServerSMPLogic();
-                    serverSTP.SetupConnection(); // Listen for connection on port 17
+                    serverSTP.setupConnection(); // Listen for connection on port 17
 
                     while (connectionStatus.isSelected()) {
                         System.out.println("Waiting for a connection...\n");
-                        serverSTP.AcceptConnection(); // Accept the connection
+                        serverSTP.acceptConnection(); // Accept the connection
                         System.out.println("Connection accepted\n");
                         new Thread(() -> {
                             try {
@@ -59,7 +58,7 @@ public class ServerSMPForm {
             stopConnection.setVisible(false);
 
             try {
-                serverSTP.CloseConnection();
+                serverSTP.closeConnection();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

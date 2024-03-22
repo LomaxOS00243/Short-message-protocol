@@ -7,15 +7,16 @@ public class ClientSMPLogic {
     public ClientSMPLogic(String hostName, int portNum) throws ClientProcessExceptions {
         try {
             this.mySocket = new StreamSocketServices(hostName, portNum);
+
         } catch (IOException e) {
             throw new ClientProcessExceptions("Connection failed - No server found at the specified host name and port number");
         }
     }
-    public String login(String username, String password) throws IOException {
-
-        mySocket.login(username, password);
+    public String getConnected() throws IOException {
         return mySocket.receiveMessage();
-
+    }
+    public void login(String username, String password) {
+        mySocket.login(username, password);
     }
     public void uploadMessage(String message) {
         mySocket.uploadMessage(message);
@@ -27,8 +28,15 @@ public class ClientSMPLogic {
     public String downloadAll() {
         return mySocket.downloadAllMessages();
     }
-    public void logout() {
+
+
+    public String logout() throws IOException {
         mySocket.logout();
+        String logoutMsg = mySocket.receiveMessage();
+        if (logoutMsg.startsWith("lout")) {
+            return logoutMsg.substring(4);
+        }
+        return null;
     }
 
 }

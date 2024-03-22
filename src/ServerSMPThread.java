@@ -19,30 +19,15 @@ public class ServerSMPThread implements Runnable {
                 message = myDataSocket.receiveMessage();
                 //append username and password if login
                 if (message.startsWith("login")) {
-                    //verify login message from client
-                    if (message.substring(5).equals(" ")) {
-                        textArea.setText("");
-                        textArea.append("Invalid login!");
-                        myDataSocket.sendMessage("Invalid!");
-                        return;
-                    }
                     textArea.setText("");
                     textArea.append("Successfully login: " + message.substring(5) + "\n");
-
 
                 }
                 //append message if upload
                 if (message.startsWith("upload")) {
 
-                    //verify upload message from client
-                    if (message.substring(6).isEmpty()) {
-                        textArea.setText("");
-                        textArea.append("Invalid message!");
-                        myDataSocket.sendMessage("Invalid message!");
-                    } else {
-                        textArea.setText("");
-                        textArea.append("Successfully uploaded: " + message.substring(6) + "\n");
-                    }
+                     textArea.setText("");
+                     textArea.append("Successfully uploaded: " + message.substring(6) + "\n");
 
                 }
                 if (message.startsWith("download")) {
@@ -54,6 +39,7 @@ public class ServerSMPThread implements Runnable {
                 }
                 //finish session if logout
                 if ((message.trim()).equals ("logout")) {
+                    myDataSocket.loggingOut();
                     textArea.append("Session over" + "\n");
                     myDataSocket.close( );
                     done = true;
