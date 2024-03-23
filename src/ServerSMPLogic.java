@@ -56,11 +56,6 @@ public class ServerSMPLogic {
             }
             if (mySSLConnectionSocket != null && !mySSLConnectionSocket.isClosed()) {
                 mySSLConnectionSocket.close();
-            }if (mySocket != null) {
-                mySocket.close();
-            }
-            if (mySSLConnectionSocket != null && !mySSLConnectionSocket.isClosed()) {
-                mySSLConnectionSocket.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
