@@ -3,12 +3,4 @@ public class ClientProcessExceptions extends Exception{
         super(message);
     }
 
-    public ClientProcessExceptions(String message, Throwable cause) {
-        super(message, cause);
-
-    }
-    public ClientProcessExceptions(Throwable cause) {
-        super(cause);
-    }
-
 }

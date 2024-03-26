@@ -11,7 +11,7 @@ public class ServerSMPForm {
     private JTextArea threads;
     private JButton stopConnection;
 
-    ServerSMPLogic serverSTP;
+    ServerSMPLogic serverSMP;
 
 
     public ServerSMPForm() {
@@ -26,17 +26,17 @@ public class ServerSMPForm {
             new Thread(() -> { // New thread to start the server
                 try {
                     System.setProperty("jdk.tls.server.protocols", "TLSv1.2");
-                    serverSTP = new ServerSMPLogic();
-                    serverSTP.setupConnection(); // Listen for connection on port 17
+                    serverSMP = new ServerSMPLogic();
+                    serverSMP.setupConnection(); // Listen for connection on port 17
 
                     while (connectionStatus.isSelected()) {
                         System.out.println("Waiting for a connection...\n");
-                        serverSTP.acceptConnection(); // Accept the connection
+                        serverSMP.acceptConnection(); // Accept the connection
                         System.out.println("Connection accepted\n");
                         new Thread(() -> {
                             try {
                                 // Start the service thread for each connection
-                                Thread theThread = new Thread(new ServerSMPThread(serverSTP.getSocket(), threads));
+                                Thread theThread = new Thread(new ServerSMPThread(serverSMP.getSocket(), threads));
                                 theThread.start();
                             } catch (Exception e1) {
                                 e1.printStackTrace();
@@ -57,8 +57,10 @@ public class ServerSMPForm {
             startConnection.setVisible(true);
             stopConnection.setVisible(false);
 
+            //serverSMP.sendCloseConnectionMessage();
+
             try {
-                serverSTP.closeConnection();
+                serverSMP.closeConnection();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
