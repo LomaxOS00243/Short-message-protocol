@@ -64,7 +64,7 @@ public class ServerSMPLogic {
 
         try {
             if (mySocket != null) {
-
+                mySocket.close();
                 mySocket.closeConnection();
             }
             if (mySSLConnectionSocket != null && !mySSLConnectionSocket.isClosed()) {
