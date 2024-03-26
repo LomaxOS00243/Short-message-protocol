@@ -83,7 +83,7 @@ public class StreamSocketServices {
 
         return toSend.substring(11);
     }
-    //sent by the client and received by the receiver
+    //sent by the client and received by the server
     public void sendLogoutMessage() {
         // send logout message to server
         output.print("logout\n");
@@ -109,7 +109,7 @@ public class StreamSocketServices {
         output.print("noFound"+ notFound + "\n");
         output.flush();
     }
-    //acknowledgement message form server when closing the connection
+    //acknowledgement message from server when closing the connection
     /*public void sendCloseConnectionMessage() {
         String closeMsg = "Server connection is closed";
         output.print("close"+ closeMsg + "\n");
