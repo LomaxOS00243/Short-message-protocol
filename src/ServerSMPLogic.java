@@ -15,7 +15,7 @@ public class ServerSMPLogic {
     public ServerSMPLogic() {}
 
     //Create a SSL server socket
-    private SSLContext secureSocket() throws Exception {
+    private SSLContext configSecureSocket() throws Exception {
         String ksName = "smpkeystore.jks";
         char[] ksPass = "mtu123".toCharArray();
         char[] ctPass = "mtu123".toCharArray();
@@ -31,7 +31,7 @@ public class ServerSMPLogic {
     //listen for the connection on port 17
     public void setupConnection() throws Exception {
 
-        SSLServerSocketFactory ssf = secureSocket().getServerSocketFactory();
+        SSLServerSocketFactory ssf = configSecureSocket().getServerSocketFactory();
         mySSLConnectionSocket = (SSLServerSocket) ssf.createServerSocket(17);
         printServerSocketInfo(mySSLConnectionSocket);
 
@@ -41,18 +41,23 @@ public class ServerSMPLogic {
     public void acceptConnection() {
         try {
             mySocket = new StreamSocketServices((SSLSocket) mySSLConnectionSocket.accept());
-            mySocket.connect();
+            mySocket.sendConnectedMessage();
 
         } catch (IOException e) {
             System.out.println("Error during handshake or connection acceptance"); //Handle Handshake or connection acceptance error
         }
 
     }
+    /*public void sendCloseConnectionMessage() {
+        mySocket.sendCloseConnectionMessage();
+    }*/
     //close the connection socket
     public void closeConnection()  {
+
         try {
             if (mySocket != null) {
-                mySocket.close();
+
+                mySocket.closeConnection();
             }
             if (mySSLConnectionSocket != null && !mySSLConnectionSocket.isClosed()) {
                 mySSLConnectionSocket.close();

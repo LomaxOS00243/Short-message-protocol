@@ -31,17 +31,27 @@ public class ServerSMPThread implements Runnable {
 
                 }
                 if (message.startsWith("downloadOne")) {
-                    textArea.append("Successfully downloaded: " + message.substring(11) + "\n");
+                    //check if message is downloaded is empty
+                    if (message.substring(11).isEmpty()) {
+                        textArea.setText("");
+                        textArea.append("No message found" + "\n");
+                        myDataSocket.sendMessageNoFound();
+                    }
+                    else {
+                        textArea.setText("");
+                        textArea.append("Successfully downloaded: " + message.substring(11) + "\n");
+                        myDataSocket.sendSuccessMessage();
+                    }
                 }
                 if (message.startsWith("downloadAll")) {
                     textArea.setText("");
-                    textArea.append("All messages \n" + message.substring(11) + "\n");
+                    textArea.append("Successfully downloaded all messages: " + message.substring(11) + "\n");
                 }
                 //finish session if logout
-                if ((message.trim()).equals ("logout")) {
-                    myDataSocket.loggingOut();
+                if (message.startsWith("logout")) {
+                    myDataSocket.sendLoggingOutMessage();
                     textArea.append("Session over" + "\n");
-                    myDataSocket.close( );
+                    myDataSocket.closeConnection( );
                     done = true;
                 }
             }

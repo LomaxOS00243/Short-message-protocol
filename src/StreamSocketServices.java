@@ -35,15 +35,19 @@ public class StreamSocketServices {
         output = new PrintWriter(new OutputStreamWriter(outStream));
     }
     public String receiveMessage() throws IOException {
+        //sslSocket.setSoTimeout(1000);
         return input.readLine();
     }
-    //connect to the server
-    public void connect() {
-        output.print("Connection is established \n");
+
+    //sent by the server and received by the client
+    public void sendConnectedMessage() {
+        String connection = "Connection is established";
+        output.print("connected" + connection+"\n");
         output.flush();
     }
 
-    public void login(String username, String password) {
+    //sent by the client and received by the server
+    public void sendLoginMessage(String username, String password) {
         user = new Users(username, password);
         String auth = user.getUsername() + " " + user.getPassword();
         output.print("login"+auth + "\n");
@@ -52,43 +56,69 @@ public class StreamSocketServices {
 
     }
 
-    //logout method
-    public void logout() {
-        // send logout message to server
-        output.print("logout\n");
-        output.flush();
-    }
-    public void loggingOut() {
-        user = null;
-        String lmsg = "logging out from the server";
-        output.print("lout"+ lmsg + "\n");
-        output.flush();
-    }
-
-    public void uploadMessage(String message) {
+    //sent by the client and received by the server
+    public void sendUploadMessage(String message) {
         output.print("upload"+ message+"\n");
         user.addMessage(message);
         output.flush();
     }
 
-    // send a download message to server
-    public void downloadAMessage(String message) {
+    // sent by the client and received by the server
+    public void sendDownloadOneMessage(String message) {
         output.print("downloadOne" + user.getAMessage(message)+"\n");
         output.flush();
     }
-    public String downloadAllMessages() {
+
+    //sent by the client and received by the server
+    public String sendDownloadAllMessages() {
         StringBuilder mBuilder = new StringBuilder();
         List<String> allMessages = user.getAllMessages();
 
         for (String mess : allMessages) {
             mBuilder.append(mess).append("\n");
         }
-        output.println("downloadAll"+ mBuilder.toString());
+        String toSend = "downloadAll" + mBuilder;
+        output.println(toSend);
         output.flush();
-        return mBuilder.toString();
+
+        return toSend.substring(11);
+    }
+    //sent by the client and received by the receiver
+    public void sendLogoutMessage() {
+        // send logout message to server
+        output.print("logout\n");
+        output.flush();
     }
 
-    public void close() throws IOException {
+    //sent by the server and received by the client
+    public void sendLoggingOutMessage() {
+        user = null;
+        String lmsg = "logging out from the server";
+        output.print("lout"+ lmsg + "\n");
+        output.flush();
+    }
+    public void sendSuccessMessage() {
+        String success = "Success";
+        output.print("success"+ success + "\n");
+        output.flush();
+    }
+
+    //sent by the server and received by the client
+    public void sendMessageNoFound() {
+        String notFound = "Message not found";
+        output.print("noFound"+ notFound + "\n");
+        output.flush();
+    }
+    //acknowledgement message form server when closing the connection
+    /*public void sendCloseConnectionMessage() {
+        String closeMsg = "Server connection is closed";
+        output.print("close"+ closeMsg + "\n");
+        output.flush();
+    }*/
+
+    //used by the server to close the connection
+    public void closeConnection() throws IOException {
         this.sslSocket.close();
     }
+
 }
