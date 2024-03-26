@@ -276,7 +276,6 @@ public class ClientSMPForm {
                 throw new RuntimeException(ex);
             }
         });
-
         //login to the server
         loginBtn.addActionListener(e -> {
 
@@ -286,7 +285,10 @@ public class ClientSMPForm {
                 return;
             }
             try {
-                //check if server is disconnected
+                /*
+                 * After the deadlock issue is solved, sending the login message will first check if the server is still connected.
+                 */
+
                 /*String serverDisconnected = clientSMP.checkConnection();
                 if (serverDisconnected != null) {
                     JOptionPane.showMessageDialog(null, serverDisconnected, "Connection Error", JOptionPane.ERROR_MESSAGE);

@@ -35,7 +35,7 @@ public class ServerSMPForm {
                         System.out.println("Connection accepted\n");
                         new Thread(() -> {
                             try {
-                                // Start the service thread for each connection
+                                // Start the service thread
                                 Thread theThread = new Thread(new ServerSMPThread(serverSMP.getSocket(), threads));
                                 theThread.start();
                             } catch (Exception e1) {
@@ -57,6 +57,7 @@ public class ServerSMPForm {
             startConnection.setVisible(true);
             stopConnection.setVisible(false);
 
+            //When the deadlock issue is fixed, the following line will be uncommented
             //serverSMP.sendCloseConnectionMessage();
 
             try {

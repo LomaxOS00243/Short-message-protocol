@@ -1,3 +1,10 @@
+/*****************************************************
+ *Code from Distributed Computing lab files
+ *Lines within this file: 89-101
+ *Author:  Peter Given
+ *Availability:  SSLReverseEchoer.java
+ *****************************************************/
+
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLContext;
@@ -36,7 +43,6 @@ public class ServerSMPLogic {
         printServerSocketInfo(mySSLConnectionSocket);
 
     }
-
     //accept the connection
     public void acceptConnection() {
         try {
@@ -48,9 +54,11 @@ public class ServerSMPLogic {
         }
 
     }
+
     /*public void sendCloseConnectionMessage() {
         mySocket.sendCloseConnectionMessage();
     }*/
+
     //close the connection socket
     public void closeConnection()  {
 
@@ -67,7 +75,8 @@ public class ServerSMPLogic {
         }
 
     }
-    //return the socket
+
+    //return this socket
     public StreamSocketServices getSocket() {
         return mySocket;
     }
@@ -85,6 +94,5 @@ public class ServerSMPLogic {
         System.out.println("   Use client mode = "
                 +s.getUseClientMode());
     }
-
 
 }

@@ -21,6 +21,11 @@ public class ClientSMPLogic {
         }
         return null;
     }
+
+    /*
+    * This code is commented out because the deadlock issue for the receiving a message needs to be solved.
+    * The solution is to check if the server is still connected before login the client.
+    */
     /*public String checkConnection() throws IOException {
         message = mySocket.receiveMessage();
         if (message.startsWith("close")) {

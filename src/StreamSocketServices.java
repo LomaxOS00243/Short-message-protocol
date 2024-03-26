@@ -1,3 +1,4 @@
+
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class StreamSocketServices {
         sslSocket = _sslSocket;
         setStreams();
     }
+
+    //set the input and output streams
     private void setStreams() throws IOException {
         // write to the socket
         InputStream inStream = sslSocket.getInputStream();
@@ -34,6 +37,8 @@ public class StreamSocketServices {
         OutputStream outStream = sslSocket.getOutputStream();
         output = new PrintWriter(new OutputStreamWriter(outStream));
     }
+
+
     public String receiveMessage() throws IOException {
         //sslSocket.setSoTimeout(1000);
         return input.readLine();
