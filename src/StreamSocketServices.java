@@ -29,11 +29,11 @@ public class StreamSocketServices {
 
     //set the input and output streams
     private void setStreams() throws IOException {
-        // write to the socket
+        // read to the socket
         InputStream inStream = sslSocket.getInputStream();
         input = new BufferedReader(new InputStreamReader(inStream));
 
-        // read from the socket
+        // write from the socket
         OutputStream outStream = sslSocket.getOutputStream();
         output = new PrintWriter(new OutputStreamWriter(outStream));
     }
