@@ -1,4 +1,6 @@
-**A GUI Java-based system for inter-process communication between clients and a server**
+**A GUI Java-based System for Inter-process Communication over TCP**
 
-The system developed a message protocol to streamline client-server communications over TCP. It uses Stream-mode Sockets to support connection-oriented communication between client and server processes. It includes SSL/TLS protocol to establish secure connections and encrypt transmission links between the server and client processes and threads for the server to handle multiple client connections simultaneously.
+This project involves the design and implementation of a **Message Protocol system** to streamline secure and concurrent client-server message exchanges over TCP. It uses Java stream-mode sockets to support connection-oriented communication between client and server processes. Multiple clients can request setting SSL/TLS connections with the server.
+
+The communication flow starts with the server listening for incoming connections on port 17. A client process can then establish a TLS connection on this port, initiating the TLS handshaking process before messages are exchanged. Once the secure connection is established, the server sends an acknowledgment message, starting a new session for this client using threading.
 
